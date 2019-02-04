@@ -42,23 +42,18 @@
 				hive = hive_datum[M.hivenumber]
 			else return
 
-			if(!hive.slashing_allowed && !(M.xeno_caste.caste_flags & CASTE_IS_INTELLIGENT))
-				to_chat(M, "<span class='warning'>Slashing is currently <b>forbidden</b> by the Queen. You refuse to slash [src].</span>")
-				return FALSE
-
 			if(stat == DEAD)
 				if(luminosity > 0)
 					playsound(loc, "alien_claw_metal", 25, 1)
 					M.flick_attack_overlay(src, "slash")
-					var/datum/effect_system/spark_spread/spark_system2
-					spark_system2 = new /datum/effect_system/spark_spread()
-					spark_system2.set_up(5, 0, src)
-					spark_system2.attach(src)
-					spark_system2.start(src)
-					disable_lights()
+					disable_lights(sparks = TRUE)
 					to_chat(M, "<span class='warning'>You disable whatever annoying lights the dead creature possesses.</span>")
 				else
 					to_chat(M, "<span class='warning'>[src] is dead, why would you want to touch it?</span>")
+				return FALSE
+
+			if(!hive.slashing_allowed && !(M.xeno_caste.caste_flags & CASTE_IS_INTELLIGENT))
+				to_chat(M, "<span class='warning'>Slashing is currently <b>forbidden</b> by the Queen. You refuse to slash [src].</span>")
 				return FALSE
 
 			if(!(M.xeno_caste.caste_flags & CASTE_IS_INTELLIGENT))
@@ -177,8 +172,10 @@
 
 			if(M.stealth_router(HANDLE_STEALTH_CHECK)) //Cancel stealth if we have it due to aggro.
 				if(M.stealth_router(HANDLE_SNEAK_ATTACK_CHECK)) //Pouncing prevents us from making a sneak attack for 4 seconds
-					damage *= 3 //Massive damage on the sneak attack... hope you have armour.
+					damage *= 3.5 //Massive damage on the sneak attack... hope you have armour.
 					KnockOut(2) //...And we knock them out
+					adjust_stagger(3)
+					add_slowdown(3)
 					M.visible_message("<span class='danger'>\The [M] strikes [src] with vicious precision!</span>", \
 					"<span class='danger'>You strike [src] with vicious precision!</span>")
 				M.stealth_router(HANDLE_STEALTH_CODE_CANCEL)
@@ -213,7 +210,7 @@
 
 			playsound(loc, 'sound/weapons/alien_knockdown.ogg', 25, 1)
 
-			var/tackle_pain = (rand(M.xeno_caste.tackle_damage * 0.20, M.xeno_caste.tackle_damage * 0.80) + rand(M.xeno_caste.tackle_damage * 0.20, M.xeno_caste.tackle_damage * 0.80))
+			var/tackle_pain = M.xeno_caste.tackle_damage
 			if(M.frenzy_aura)
 				tackle_pain = tackle_pain * (1 + (0.05 * M.frenzy_aura))  //Halloss damage increased by 5% per rank of frenzy aura
 			if(protection_aura)
@@ -221,14 +218,16 @@
 			if(M.stealth_router(HANDLE_STEALTH_CHECK))
 				if(M.stealth_router(HANDLE_SNEAK_ATTACK_CHECK))
 					KnockOut(2)
-					tackle_pain *= 3 //Halloss multiplied by 3.
+					tackle_pain *= 3.5 //Halloss multiplied by 3.
+					adjust_stagger(3)
+					add_slowdown(3)
 					M.visible_message("<span class='danger'>\The [M] strikes [src] with vicious precision!</span>", \
 					"<span class='danger'>You strike [src] with vicious precision!</span>")
 				M.stealth_router(HANDLE_STEALTH_CODE_CANCEL)
 			M.neuroclaw_router(src) //if we have neuroclaws...
 			if(dam_bonus)
 				tackle_pain += dam_bonus
-			apply_damage(tackle_pain, HALLOSS, "chest", armor_block * 0.5) //Only half armour applies vs tackle
+			apply_damage(tackle_pain, HALLOSS, "chest", armor_block * 0.4) //Only half armour applies vs tackle
 			updatehealth()
 			updateshock()
 			var/throttle_message = "<span class='danger'>\The [M] throttles [src]!</span>"
