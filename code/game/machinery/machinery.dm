@@ -97,7 +97,7 @@ Class Procs:
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
 	var/stat = 0
-	var/emagged = 0
+	var/emagged = FALSE
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
@@ -115,7 +115,7 @@ Class Procs:
 	var/manual = 0
 	var/global/gl_uid = 1
 	layer = OBJ_LAYER
-	var/machine_processing = 0 // whether the machine is busy and requires process() calls in scheduler.
+	var/machine_processing = FALSE // whether the machine is busy and requires process() calls in scheduler.
 
 	var/destructible = TRUE
 	var/damage = 0
@@ -138,6 +138,8 @@ Class Procs:
 	var/area/A = get_area(src)
 	if(A)
 		A.area_machines += src
+	start_processing()
+	//power_change()
 
 /obj/machinery/Destroy()
 	GLOB.machines -= src
@@ -149,12 +151,12 @@ Class Procs:
 
 /obj/machinery/proc/start_processing()
 	if(!machine_processing)
-		machine_processing = 1
+		machine_processing = TRUE
 		processing_machines += src
 
 /obj/machinery/proc/stop_processing()
 	if(machine_processing)
-		machine_processing = 0
+		machine_processing = FALSE
 		processing_machines -= src
 
 /obj/machinery/process()//If you dont use process or power why are you here

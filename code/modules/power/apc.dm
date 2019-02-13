@@ -185,8 +185,6 @@
 		update_icon()
 		addtimer(CALLBACK(src, .proc/update), 5)
 
-	start_processing()
-
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
 
@@ -225,8 +223,7 @@
 
 		update_icon()
 		make_terminal()
-
-		update() //areas should be lit on startup
+		addtimer(CALLBACK(src, .proc/update), 5)
 
 		//Break few ACPs on the colony
 		if(!start_charge && is_ground_level(z) && prob(10))

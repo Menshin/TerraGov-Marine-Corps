@@ -36,11 +36,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>The maintenance hatch is open.</span>")
 
-/obj/machinery/power/smes/New()
+/obj/machinery/power/smes/Initialize()
 	. = ..()
-	if(!powernet)
-		connect_to_network()
-
 	dir_loop:
 		for(var/d in cardinal)
 			var/turf/T = get_step(src, d)
@@ -52,10 +49,7 @@
 		stat |= BROKEN
 		return
 	terminal.master = src
-	if(!terminal.powernet)
-		terminal.connect_to_network()
 	update_icon()
-	start_processing()
 
 /obj/machinery/power/smes/Destroy()
 	if(terminal)

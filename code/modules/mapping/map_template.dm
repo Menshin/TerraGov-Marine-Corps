@@ -27,7 +27,7 @@
 
 /datum/parsed_map/proc/initTemplateBounds()
 	//var/list/obj/machinery/atmospherics/atmos_machines = list()
-	//var/list/obj/structure/cable/cables = list()
+	var/list/obj/structure/cable/cables = list()
 	var/list/atom/atoms = list()
 
 	var/list/turfs = block(	locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]),
@@ -39,9 +39,9 @@
 		atoms += B
 		for(var/A in B)
 			atoms += A
-			//if(istype(A, /obj/structure/cable))
-			//	cables += A
-			//	continue
+			if(istype(A, /obj/structure/cable))
+				cables += A
+				continue
 			//if(istype(A, /obj/machinery/atmospherics))
 			//	atmos_machines += A
 	//for(var/L in border)
@@ -49,7 +49,7 @@
 		//T.air_update_turf(TRUE) //calculate adjacent turfs along the border to prevent runtimes
 
 	SSatoms.InitializeAtoms(atoms)
-	//SSmachines.setup_template_powernets(cables)
+	SSmachines.setup_template_powernets(cables)
 	//SSair.setup_template_machinery(atmos_machines)
 
 /datum/map_template/proc/load_new_z()
