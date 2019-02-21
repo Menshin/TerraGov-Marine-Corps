@@ -336,6 +336,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			HTML += "<a href='?_src_=prefs;preference=jobselect;job=[job.title];level=[JOBS_PRIORITY_MEDIUM]'><font color=orange>\[Low]</font></a>"
 		else
 			HTML += "<a href='?_src_=prefs;preference=jobselect;job=[job.title];level=[JOBS_PRIORITY_LOW]'><font color=red>\[NEVER]</font></a>"
+			
 		HTML += "</td></tr>"
 
 	HTML += "</td'></tr></table>"
@@ -408,6 +409,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		return FALSE
 	if(!job.prefflag)
 		return FALSE
+
 	if(jobs_high && level == JOBS_PRIORITY_HIGH)
 		jobs_high = NOFLAGS
 	switch(level)

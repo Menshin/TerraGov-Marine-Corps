@@ -168,3 +168,4 @@
 #define PREF_JOB_SQSMARTGUNNER	(1 << 19)
 #define PREF_JOB_SQSPECIALIST	(1 << 20)
 #define PREF_JOB_SQLEADER		(1 << 21)
+
