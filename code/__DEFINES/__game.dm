@@ -45,6 +45,7 @@ These are used with cdel (clean delete). For example, qdel(atom, TA_REVIVE_ME) w
 
 #define INVISIBILITY_ABSTRACT 101 //only used for abstract objects (e.g. spacevine_controller), things that are not really there.
 
+
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 

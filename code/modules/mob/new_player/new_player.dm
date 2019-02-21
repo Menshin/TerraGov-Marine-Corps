@@ -13,6 +13,7 @@
 
 	var/mob/living/new_character	//for instant transfer once the round is set up
 
+
 /mob/new_player/Initialize()
 	. = ..()
 	GLOB.total_players++

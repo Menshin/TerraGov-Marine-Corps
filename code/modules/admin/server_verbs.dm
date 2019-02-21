@@ -323,6 +323,7 @@
 		log_admin("[key_name(usr)] set the pre-game delay to [DisplayTimeText(newtime)].")
 		message_admins("[ADMIN_TPMONTY(usr)] set the pre-game delay to [DisplayTimeText(newtime)].")
 
+
 /datum/admins/proc/delay_end()
 	set category = "Server"
 	set name = "Delay Round-End"

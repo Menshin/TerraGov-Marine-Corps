@@ -5,6 +5,7 @@
 #define GAME_STATE_PLAYING		3
 #define GAME_STATE_FINISHED		4
 
+
 //=================================================
 //Self destruct, nuke, and evacuation.
 #define EVACUATION_TIME_LOCK 60 MINUTES

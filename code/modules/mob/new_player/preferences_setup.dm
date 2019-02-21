@@ -199,7 +199,6 @@
 		undershirt_s = new/icon("icon" = 'icons/mob/human.dmi', "icon_state" = "cryoshirt[undershirt]_s")
 
 	var/icon/clothes_s = null
-
 	switch(jobs_high)
 		if(PREF_JOB_SQMARINE)
 			clothes_s = new /icon('icons/mob/uniform_0.dmi', "marine_jumpsuit")
