@@ -244,6 +244,8 @@ SUBSYSTEM_DEF(job)
 				remembered_info += "<b>Your account was created:</b> [T.time], [T.date] at [T.source_terminal]<br>"
 			H.mind.store_memory(remembered_info)
 			H.mind.initial_account = A
+		if(M.client)
+			H.equip_preference_gear(M.client)
 	if(job)
 		job.radio_help_message(M)
 		if(job.req_admin_notify)

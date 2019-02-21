@@ -275,6 +275,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, world.AVadmin())
 	/datum/admins/proc/gamemode_panel,
 	/datum/admins/proc/local_message,
 	/datum/admins/proc/view_faxes,
+	/datum/admins/proc/toggle_adminhelp_sound,
+	/datum/admins/proc/toggle_prayers,
 	/client/proc/private_message_panel,
 	/client/proc/private_message_context
 	)
@@ -288,6 +290,8 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, world.AVmentor())
 	/datum/admins/proc/admin_ghost,
 	/datum/admins/proc/subtle_message,
 	/datum/admins/proc/view_faxes,
+	/datum/admins/proc/toggle_adminhelp_sound,
+	/datum/admins/proc/toggle_prayers,
 	/client/proc/private_message_panel,
 	/client/proc/private_message_context
 	)
@@ -347,6 +351,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, world.AVserver())
 /world/proc/AVserver()
 	return list(
 	/datum/admins/proc/restart,
+	/datum/admins/proc/shutdown_server,
 	/datum/admins/proc/toggle_ooc,
 	/datum/admins/proc/toggle_looc,
 	/datum/admins/proc/toggle_deadchat,
